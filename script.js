@@ -1,64 +1,130 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Typewriter Effect for Hero Title
-    const titleElement = document.getElementById('hero-title');
-    const originalText = titleElement.innerHTML;
-    const words = ["Future", "Community", "Code", "India"];
-    let wordIndex = 0;
-    let isDeleting = false;
-    let text = "Hack The ";
-    
-    function type() {
-        const currentWord = words[wordIndex];
-        const shouldWait = !isDeleting && text === "Hack The " + currentWord;
-        const shouldMoveToNext = isDeleting && text === "Hack The ";
 
-        if (shouldWait) {
-            setTimeout(() => { isDeleting = true; type(); }, 2000);
-            return;
+    // ========== PARTICLE CANVAS ==========
+    const canvas = document.getElementById('particle-canvas');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        function createParticle() {
+            return {
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 1.5 + 0.5,
+                dx: (Math.random() - 0.5) * 0.4,
+                dy: (Math.random() - 0.5) * 0.4,
+                alpha: Math.random() * 0.5 + 0.1,
+            };
         }
 
-        if (shouldMoveToNext) {
-            isDeleting = false;
-            wordIndex = (wordIndex + 1) % words.length;
-            setTimeout(type, 500);
-            return;
-        }
+        for (let i = 0; i < 80; i++) particles.push(createParticle());
 
-        if (isDeleting) {
-            text = text.substring(0, text.length - 1);
-        } else {
-            text = "Hack The " + currentWord.substring(0, text.replace("Hack The ", "").length + 1);
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 242, 255, ${p.alpha})`;
+                ctx.fill();
+                p.x += p.dx;
+                p.y += p.dy;
+                if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+            });
+            // Draw connecting lines
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dist = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
+                    if (dist < 100) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0, 242, 255, ${0.05 * (1 - dist / 100)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(drawParticles);
         }
-
-        titleElement.innerHTML = text.replace(currentWord.substring(0, text.replace("Hack The ", "").length), `<span class="cyan-text">${currentWord.substring(0, text.replace("Hack The ", "").length)}</span>`);
-        
-        const typeSpeed = isDeleting ? 100 : 200;
-        setTimeout(type, typeSpeed);
+        drawParticles();
     }
 
-    // Start typewriter if title exists
-    if (titleElement) {
-        // type(); // Disabled for now to keep the static look stable, can be enabled later
+    // ========== TYPEWRITER EFFECT ==========
+    const wordEl = document.getElementById('typewriter-word');
+    if (wordEl) {
+        const words = ['Future', 'Code', 'India', 'Change'];
+        let wordIdx = 0, charIdx = 0, deleting = false;
+
+        function typeLoop() {
+            const current = words[wordIdx];
+            if (!deleting) {
+                wordEl.textContent = current.slice(0, ++charIdx);
+                if (charIdx === current.length) {
+                    deleting = true;
+                    setTimeout(typeLoop, 2000);
+                    return;
+                }
+            } else {
+                wordEl.textContent = current.slice(0, --charIdx);
+                if (charIdx === 0) {
+                    deleting = false;
+                    wordIdx = (wordIdx + 1) % words.length;
+                }
+            }
+            setTimeout(typeLoop, deleting ? 80 : 150);
+        }
+        typeLoop();
     }
 
-    // Hamburger Menu (Simple implementation)
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-
-    if (hamburger) {
-        hamburger.addEventListener('click', () => {
-            // In a real implementation, we'd toggle a 'show' class and style it in CSS
-            alert('Mobile menu coming soon!');
+    // ========== SCROLL REVEAL ==========
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, i * 100);
+                observer.unobserve(entry.target);
+            }
         });
-    }
+    }, { threshold: 0.1 });
 
-    // Smooth Scrolling
+    revealEls.forEach(el => observer.observe(el));
+
+    // ========== SMOOTH SCROLLING ==========
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
         });
+    });
+
+    // ========== HAMBURGER MENU ==========
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    if (hamburger) {
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('mobile-open');
+            hamburger.classList.toggle('active');
+        });
+    }
+
+    // ========== NAV SCROLL EFFECT ==========
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            nav.style.background = 'rgba(0,0,0,0.95)';
+        } else {
+            nav.style.background = 'rgba(0,0,0,0.8)';
+        }
     });
 });

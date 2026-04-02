@@ -39,18 +39,78 @@
 
     <main>
         <section class="hero">
-            <div class="hero-content">
+            <canvas id="particle-canvas"></canvas>
+            <div class="hero-content reveal">
                 <div class="status-indicator">
-                    <span class="dot"></span> System Online
+                    <span class="dot"></span> System Online &mdash; 5M+ Hackers Active
                 </div>
-                <h1 id="hero-title">Hack The <span class="cyan-text">Future</span></h1>
-                <p class="hero-subtitle">India's Premire Community for Innovation and Creation.</p>
+                <h1 id="hero-title">Hack The <span class="cyan-text typewriter" id="typewriter-word">Future</span></h1>
+                <p class="hero-subtitle">India's <strong>Premier</strong> Community for Innovation, Code, and Creation.</p>
                 <div class="hero-btns">
-                    <button class="cta-btn primary">Join Community <i class="fas fa-chevron-right"></i></button>
-                    <button class="cta-btn secondary">Explore Events</button>
+                    <button class="cta-btn primary" onclick="window.location.href='#community'">Join Community <i class="fas fa-bolt"></i></button>
+                    <button class="cta-btn secondary" onclick="window.location.href='#events'">Explore Events <i class="fas fa-arrow-right"></i></button>
+                </div>
+                <div class="hero-badges">
+                    <span class="hero-badge"><i class="fas fa-check-circle"></i> Free to Join</span>
+                    <span class="hero-badge"><i class="fas fa-check-circle"></i> 100+ Chapters</span>
+                    <span class="hero-badge"><i class="fas fa-check-circle"></i> Real Prizes</span>
                 </div>
             </div>
-        </main>
+        </section>
+
+        <!-- WHY HACKFORGE SECTION -->
+        <section id="why" class="why-section reveal">
+            <h2 class="section-title">Why <span class="cyan-text">HackForge?</span></h2>
+            <p class="section-subtitle">Everything you need to build, connect, and win.</p>
+            <div class="features-grid">
+                <div class="feature-card glass reveal">
+                    <div class="feature-icon"><i class="fas fa-trophy"></i></div>
+                    <h3>Real Prizes</h3>
+                    <p>Win cash, gadgets, job offers, and startup funding by competing in 500+ annual events.</p>
+                </div>
+                <div class="feature-card glass reveal">
+                    <div class="feature-icon"><i class="fas fa-network-wired"></i></div>
+                    <h3>Elite Network</h3>
+                    <p>Connect with India's top hackers, mentors, VCs, and tech leaders in one platform.</p>
+                </div>
+                <div class="feature-card glass reveal">
+                    <div class="feature-icon"><i class="fas fa-book-open"></i></div>
+                    <h3>Skill Building</h3>
+                    <p>Access workshops, bootcamps, and mentorship sessions to level up before each hackathon.</p>
+                </div>
+                <div class="feature-card glass reveal">
+                    <div class="feature-icon"><i class="fas fa-satellite-dish"></i></div>
+                    <h3>Live Updates</h3>
+                    <p>Get real-time notifications for upcoming hackathons, results, and community announcements.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SPONSORS MARQUEE -->
+        <section id="sponsors" class="sponsors-section">
+            <p class="sponsors-label">Trusted by India's Leading Tech Companies</p>
+            <div class="marquee-wrapper">
+                <div class="marquee-track">
+                    <span class="sponsor-item"><i class="fab fa-google"></i> Google</span>
+                    <span class="sponsor-item"><i class="fab fa-microsoft"></i> Microsoft</span>
+                    <span class="sponsor-item"><i class="fab fa-amazon"></i> Amazon</span>
+                    <span class="sponsor-item"><i class="fas fa-building"></i> Razorpay</span>
+                    <span class="sponsor-item"><i class="fas fa-rocket"></i> Zepto</span>
+                    <span class="sponsor-item"><i class="fab fa-github"></i> GitHub</span>
+                    <span class="sponsor-item"><i class="fab fa-slack"></i> Slack</span>
+                    <span class="sponsor-item"><i class="fab fa-figma"></i> Figma</span>
+                    <!-- Duplicated for seamless loop -->
+                    <span class="sponsor-item"><i class="fab fa-google"></i> Google</span>
+                    <span class="sponsor-item"><i class="fab fa-microsoft"></i> Microsoft</span>
+                    <span class="sponsor-item"><i class="fab fa-amazon"></i> Amazon</span>
+                    <span class="sponsor-item"><i class="fas fa-building"></i> Razorpay</span>
+                    <span class="sponsor-item"><i class="fas fa-rocket"></i> Zepto</span>
+                    <span class="sponsor-item"><i class="fab fa-github"></i> GitHub</span>
+                    <span class="sponsor-item"><i class="fab fa-slack"></i> Slack</span>
+                    <span class="sponsor-item"><i class="fab fa-figma"></i> Figma</span>
+                </div>
+            </div>
+        </section>
 
         <section id="events" class="events-section">
             <h2 class="section-title">Active <span class="cyan-text">Hackathons</span></h2>

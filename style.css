@@ -1,3 +1,138 @@
+/* ===================== NEW ENHANCEMENTS ===================== */
+
+/* Particle Canvas */
+#particle-canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+.hero { position: relative; }
+.hero-content { position: relative; z-index: 1; }
+
+/* Typewriter cursor */
+.typewriter::after {
+    content: '|';
+    animation: blink 0.7s infinite;
+    color: var(--cyan-accent);
+}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* Hero Badges */
+.hero-badges {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+.hero-badge {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+}
+.hero-badge i { color: #22c55e; font-size: 0.75rem; }
+
+/* Scroll Reveal */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Why HackForge Section */
+.why-section {
+    padding: 5rem 5%;
+    text-align: center;
+}
+.why-section .section-subtitle {
+    margin-bottom: 3rem;
+}
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.5rem;
+}
+.feature-card {
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.feature-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--cyan-accent);
+    box-shadow: 0 0 30px rgba(0,242,255,0.08);
+}
+.feature-icon {
+    width: 64px; height: 64px;
+    border-radius: 14px;
+    background: rgba(0,242,255,0.1);
+    border: 1px solid rgba(0,242,255,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem;
+    color: var(--cyan-accent);
+    margin: 0 auto 1.25rem;
+    transition: box-shadow 0.3s;
+}
+.feature-card:hover .feature-icon {
+    box-shadow: 0 0 20px var(--cyan-glow);
+}
+.feature-card h3 { font-size: 1.2rem; margin-bottom: 0.75rem; }
+.feature-card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; }
+
+/* Sponsors Marquee */
+.sponsors-section {
+    padding: 2.5rem 0;
+    overflow: hidden;
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+}
+.sponsors-label {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+}
+.marquee-wrapper { overflow: hidden; }
+.marquee-track {
+    display: flex;
+    gap: 3rem;
+    width: max-content;
+    animation: marquee 20s linear infinite;
+}
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+.sponsor-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-secondary);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    transition: color 0.3s;
+}
+.sponsor-item i { color: var(--cyan-accent); }
+.marquee-track:hover { animation-play-state: paused; }
+
+/* ============================================================ */
+
 :root {
     --bg-color: #000000;
     --card-bg: rgba(15, 15, 20, 0.7);
